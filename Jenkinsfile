@@ -1,22 +1,18 @@
 pipeline {
-  agent {
-    docker {
-      image 'docker:dind'
-      args '-v /var/run/docker.sock:/var/run/docker.sock' 
+    agent none
+    stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'docker:latest'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            steps {
+                sh 'ls'
+                sh 'docker build -t myimage .'
+            }
+        }
+        
     }
-  }
-
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
-    }
-    stage('CI') {
-      steps {
-        sh 'ls'
-        sh 'docker build -t my-app .'
-      }
-    }
-  }
 }
