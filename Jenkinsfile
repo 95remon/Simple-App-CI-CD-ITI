@@ -1,18 +1,28 @@
 pipeline {
-    agent none
+    agent any
+
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+        stage('CI') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/95remon/Simple-App-CI-CD-ITI'
+                sh """
+                docker login -u ${USERNAME} -p ${PASSWORD}
+                docker build . -t 95remon/gcp-simple-app:v1.0
+                docker push 95remon/gcp-simple-app:v1.0
+                """
                 }
             }
+        }
+         stage('CD') {
             steps {
-                sh 'ls'
-                sh 'docker ps'
+                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                git 'https://github.com/95remon/Simple-App-CI-CD-ITI'
+                sh """
+                docker login -u ${USERNAME} -p ${PASSWORD}
+                """
+                }
             }
         }
-        
     }
 }
