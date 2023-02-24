@@ -15,15 +15,5 @@ pipeline {
                 }
             }
         }
-         stage('CD') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                git 'https://github.com/95remon/Simple-App-CI-CD-ITI.git'
-                sh """
-                docker login -u ${USERNAME} -p ${PASSWORD}
-                """
-                }
-            }
-        }
     }
 }
