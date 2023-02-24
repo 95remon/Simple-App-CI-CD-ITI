@@ -33,7 +33,7 @@ pipeline {
                 sh """
                     kubectl apply -f /YAML-FILES/NS.yaml
                     kubectl apply -f /YAML-FILES/app-deplyment.yaml
-                    LB.yaml
+                    kubectl apply -f /YAML-FILES/LB.yaml
                 """
             }
         }
