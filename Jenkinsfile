@@ -40,6 +40,8 @@ pipeline {
                 ])
                 sh """
                     ls
+                    cd YAML-FILES
+                    ls
                     kubectl apply -f /YAML-FILES/NS.yaml
                     kubectl apply -f /YAML-FILES/app-deplyment.yaml
                     kubectl apply -f /YAML-FILES/LB.yaml
