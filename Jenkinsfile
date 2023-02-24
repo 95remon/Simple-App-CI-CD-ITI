@@ -30,7 +30,16 @@ pipeline {
         
         stage('Deploy') {
             steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/95remon/Simple-App-CI-CD-ITI.git',
+                        credentialsId: 'GitHub'
+                    ]]
+                ])
                 sh """
+                    ls
                     kubectl apply -f /YAML-FILES/NS.yaml
                     kubectl apply -f /YAML-FILES/app-deplyment.yaml
                     kubectl apply -f /YAML-FILES/LB.yaml
