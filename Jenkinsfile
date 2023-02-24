@@ -19,15 +19,23 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                     sh """
-                    ls
-                    docker login -u ${USERNAME} -p ${PASSWORD}
-                    docker build . -t 95remon/gcp-simple-app:v1.0
-                    docker push 95remon/gcp-simple-app:v1.0
+                        ls
+                        docker login -u ${USERNAME} -p ${PASSWORD}
+                        docker build . -t 95remon/gcp-simple-app:v1.0
+                        docker push 95remon/gcp-simple-app:v1.0
                     """
                 } 
             }
         }
         
-        // Insert additional stages here
+        stage('Deploy') {
+            steps {
+                sh """
+                    kubectl apply -f /YAML-FILES/NS.yaml
+                    kubectl apply -f /YAML-FILES/app-deplyment.yaml
+                    LB.yaml
+                """
+            }
+        }
     }
 }
