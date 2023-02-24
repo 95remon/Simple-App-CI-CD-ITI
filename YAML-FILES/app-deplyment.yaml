@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: python-deployment
-        image: gcr.io/focused-bridge-317713/python-img:v3.0
+        image: 95remon/gcp-simple-app:v1.0
         ports:
          - containerPort: 8000
       - name: redis
