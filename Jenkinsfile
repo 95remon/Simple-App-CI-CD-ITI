@@ -25,6 +25,7 @@ pipeline {
                     docker push 95remon/gcp-simple-app:v1.0
                     """
                 } 
+            }
         }
         
         // Insert additional stages here
