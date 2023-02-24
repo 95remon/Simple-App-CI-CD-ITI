@@ -42,9 +42,9 @@ pipeline {
                     ls
                     cd YAML-FILES
                     ls
-                    kubectl apply -f /YAML-FILES/NS.yaml
-                    kubectl apply -f /YAML-FILES/app-deplyment.yaml
-                    kubectl apply -f /YAML-FILES/LB.yaml
+                    kubectl apply -f NS.yaml
+                    kubectl apply -f app-deplyment.yaml
+                    kubectl apply -f LB.yaml
                 """
             }
         }
