@@ -30,14 +30,6 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/95remon/Simple-App-CI-CD-ITI.git',
-                        credentialsId: 'GitHub'
-                    ]]
-                ])
                 sh """
                     ls
                     cd YAML-FILES
